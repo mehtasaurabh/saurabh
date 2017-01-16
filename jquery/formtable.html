@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<div class="container">
+		<!-- creating form -->
 			<h1 class=" alert alert-success"><marquee>PATIENT REGISTRATION FORM</MARQUEE></h1>
 			<hr>
 			<form class="form-horizontal container" action="#" id="reg_form" name="myForm" >
@@ -77,10 +78,13 @@
 						<p id="bg_er"></p>
 					</div>
 				</div>
+				<!-- creating buttons -->
 				<div class="btn-group">
 					<div align="center">
-						<input type="submit" value= "submit" class="btn btn-success">
+						<input type="submit" id="btn-add"  value= "submit" class="btn btn-success">
 						<input type="reset" class="btn btn-default">
+						<button type="button" class="btn btn-success" id="btn-update">Update</button>
+ 
 				</div>
 				</form>
 				<h2 class=" alert alert-success "><marquee>GET WELL SOON</marquee></h2>
@@ -88,30 +92,21 @@
 				respective doctors.They can either submit by cash or via card.</p>
 				<hr>
 				<hr>
- 
-		<table  class="table-striped table-bordered table-hover table-condensed"
-		id="tabdata"> 
-			<tr>
-				<td><b>firstname </b></td>
-				<td><b>lastname </b></td>
-				<td><b>email</b></td>
-				<td><b>number</b></td>
-				<td><b>meet</b></td>
-				<td><b>age</b></td>
-				<td><b>blood_group</b></td>
-				<td>&nbsp</td>
-				<td>&nbsp</td>
-				<td>&nbsp</td>	
-			</tr>
-			
-			
-		</table>
-		<!--<div align="center">
-			<div class="btn-group">
-				<input type="button" value="delete" id="btndel" class="btn btn-default">
-				<input type="button" value="update" id="btnupd" class="btn btn-default">
-			</div>
-		</div> -->
+			<!-- creating table -->
+			<table  class="table-striped table-bordered table-hover table-condensed"
+			id="tabdata"> 
+				<tr>
+					<td><b>firstname </b></td>
+					<td><b>lastname </b></td>
+					<td><b>email</b></td>
+					<td><b>number</b></td>
+					<td><b>meet</b></td>
+					<td><b>age</b></td>
+					<td><b>blood_group</b></td>
+					<td>&nbsp</td>
+				</tr>
+			</table>
+		<!-- using jquery script-->
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jqval.js"></script> 
 	</body>

@@ -1,0 +1,7 @@
+$("table tbody").append(markup);
+		$(function(){
+			$('#btndel').on('click',function(){
+				$('table tbody').hide();
+			})
+		})
+	});
