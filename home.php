@@ -1,34 +1,34 @@
-<?php 
-/*		File	 : home.php
-		Purpose	 : create first page of our website which gives option to chose from register and login
-		Author 	 : Saurabh Mehta */
-
+<?php
+/* 	File    : home.php
+	Purpose : Contains all html data and Php data for  Home Page
+	Author  : Saurabh Mehta 		*/
 ?>
 
-<html>
-  <head>
-    <title>Home</title>
-	 <link href="css/bootstrap.min.css" rel="stylesheet">
-	 <meta charset="utf-8"/>
-  </head>
-  <body>
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Welcome</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="home.php">Home</a></li>
-            <li><a href="register.php">Register</a></li>
-            <li><a href="login.php">Login</a></li>
-          </ul>
-        </div>
-      </nav>
-	  <h3 class="text-primary">Select any one option based on your type</h3>
-	    <ul class="pager">
-		  <li><a href="register.php">Register</a></li>
-          <li><a href="login.php">Login</a></li>
-        </ul>
-  </body>
-</html>
-	
+<?php
+	session_start();
+	$PageTitle = "Home";
+	include_once 'header.php';
+?>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><img src="logo.png" height="300" width="400"></li>
+        <li class="active"><a href="homeAdmin.php">Home</a></li>
+        <?php
+			$n=$_SESSION["user"]; if("$n"== "Admin"){
+			echo "<li><a href="."allusers.php.".">Users</a></li>";
+		}
+		?>
+        <li><a href="personal.php">Personal Info</a></li>
+	  </ul>
+	  <ul class="nav navbar-nav navbar-right">
+		<li><a href="signout.php">Signout</a></li>
+	  </ul>
+    </div>
+  </nav>
+
+<?php
+	include_once 'footer.php';
+?>

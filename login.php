@@ -1,61 +1,120 @@
 <?php
-/*		File	 : login.php
-		Purpose	 : login page
-		Author 	 : Saurabh Mehta */
+	/*	File    : login.php
+		Purpose : Contains all html data and Php data for the login page
+		Author  : Saurabh Mehta	*/
 ?>
 
-
-
-<html>
-  <head>
-    <title>Login</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<meta charset="utf-8"/>
-  </head>
-  <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Welcome</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li><a href="home.php">Home</a></li>
-          <li><a href="register.php">Register</a></li>
-		  <li class="active"><a href="login.php">Login</a></li>
-        </ul>
-      </div>
-    </nav>
-	<form action="login_data.php" class="form-horizontal container" name="LoginForm" method="post" id="form">
-	  <div class="container-fluid form-group">
-		<div class="col-sm-10">
-		  <label class="control-label col-sm-4">Email:</label>
-		  <div class="col-sm-6">
-	        <input type="email" id="email" name="email" class="form-control" required/>
-		  </div>
-		  <br>
-		  <label class="control-label col-sm-4">Password:</label>
-		  <div class="col-sm-6">
-		    <input type="password" id="password" name="pass" class="form-control" required/>
-		  </div>
-		  <label class="control-label col-sm-4">Login As:</label>
-		  <div class = "col-sm-6">
-		    <select id="user-type" class="from-control" name="userType" />
-			  <option value="admin" name="admin">admin</option>
-			  <option value="user" name="user">user</option> 
-		    </select>
+<?php
+    session_start();
+    $dbname = mysqli_connect("localhost", "root", "", "mydb");
+    
+    if (isset($_POST['login-btn']))
+    {
+        $name = mysql_real_escape_string($_POST['username']);
+        $pass = mysql_real_escape_string($_POST['password']);
+        $user = mysql_real_escape_string($_POST['selectUser']);
+        
+        $sql = "SELECT * FROM logindata WHERE user='$user' AND name='$name' AND password='$pass'";
+        $result = mysqli_query($dbname,$sql);
+        $admin='Admin';
+        if(mysqli_num_rows($result) == 1) {
+			$_SESSION["name"] = "$name";
+			$_SESSION["user"] = "$user";
+			header("location:home.php");
+        }
+        else {
+            $message = 'Your email or password is incorrect';
+        }
+    }
+	if (isset($_SESSION["name"]))
+	{
+		header("location:home.php");
+	}
+	$PageTitle = "Login";
+	include_once 'header.php';
+?>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+		<li><img src="logo.png" height="200" width="300"></li>
+		<li><a href="register.php">Register</a></li>
+		<li class="active"><a href="login.php">Login</a></li>
+	  </ul>
+	  <ul class="nav navbar-nav navbar-right">
+		<li><a href="aboutUs.php">AboutUs</a></li>
+	  </ul>
+	</div>
+  </nav>
+	<div class="container">
+	  <div class="row">
+	    <div class="col-md-6 col-md-offset-3">
+		  <div class="panel panel-login">
+			<div class="panel-heading">
+			  <div class="row">
+				<div class="col-xs-6">
+				  <a href="login.php" class="active" id="login-form-link">Login</a>
+				</div>
+				<div class="col-xs-6">
+				  <a href="register.php" id="register-form-link">Register</a>
+				</div>
+			  </div>
+			  <hr>
+			</div>
+			<div class="panel-body">
+			  <div class="row">
+				<div class="col-lg-12">
+				  <form id="login-form" action="login.php" method="post" role="form"
+					style="display: block;">
+					<div class="form-group">
+					  <div class = "styled-select select">
+						<label class="SelectControl" for="LoginAs" >Login As :</label>
+						<select id="formSelectUser" name=selectUser>
+						  <option value="Admin">Admin</option>
+						  <option value="User">User</option>	
+						</select>
+					  </div>
+					</div>
+					<div>
+					  <span style="color:red" id="name-error">
+						<?php 
+							if(isset($message)) echo $message; 
+						?>
+					  </span>
+					</div>
+					<div class="form-group">
+					  <input type="text" name="username" id="username" class="form-control"
+						placeholder="Username">
+					</div>
+					<div class="form-group">
+					  <input type="password" name="password" id="password"
+						class="form-control" placeholder="Password">
+					</div>
+					<div class="form-group">
+					  <div class="row">
+						<div class="col-sm-6 col-sm-offset-3">
+					<input type="submit" name="login-btn" id="login-submit"
+					  class="form-control btn btn-login" value="Log In">
+						</div>
+					  </div>
+					</div>
+					<div class="form-group">
+					  <div class="row">
+						<div class="col-lg-12">
+						  <div class="text-center">
+							<a href="#" class="forgot-password">Forgot Password?</a>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </form>
+				</div>
+			  </div>
+			</div>
 		  </div>
 		</div>
 	  </div>
-	  <div class="form-style">
-		<a href="#"><center>forget password</center></a>
-	  </div>
-	  <div class="form-style">
-		<center><input type='submit' class="btn btn-info" name='btn-login' value='Login'></center>
-	  </div>      
-    </form>
-
-	
-	
-  </body>
-</html>
-  
+	</div>		
+ <?php
+  include_once 'footer.php';
+  ?>
