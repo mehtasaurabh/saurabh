@@ -1,7 +1,7 @@
 <?php
-	/*	 File    : personal.php
-		Purpose : Contains all html data and Php data for showing personal info
-		Author  : Saurabh Mehta	*/
+/*	File    : personal.php
+	Purpose : Contains all html data and Php data for showing personal info
+	Author  : Saurabh Mehta	*/
 ?>
 
 <?php
@@ -39,7 +39,8 @@
 	</div>
   </div>
 <?php
-	$servername = "localhost";
+	include_once 'dbconnect.php';
+/*	$servername = "localhost";
 	$username = "root";
 	$password = "";
 	$dbname = "myDB";
@@ -47,7 +48,7 @@
 	
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-	} 
+	} */
 	$n = $_SESSION["name"];
 	$sql = "SELECT id, user, name, email FROM logindata WHERE name='$n'";
 	$result = $conn->query($sql);

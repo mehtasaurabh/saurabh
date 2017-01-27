@@ -1,14 +1,15 @@
 <?php
-    $servername = "localhost";
+	session_start();
+	include_once "dbconnect.php";
+/*    $servername = "localhost";
 	$username = "root";
 	$password = "";
 	$dbname = "myDB";
-	session_start();
 	$conn = new mysqli($servername, $username, $password, $dbname); 
     // Check connection
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
+    }*/
 	$id = $_GET['id'];
 	
 	if (isset($_POST['submit']))

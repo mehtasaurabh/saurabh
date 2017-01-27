@@ -39,7 +39,8 @@
   </div>
 </div>
 <?php
-  $servername = "localhost";
+include_once "dbconnect.php";
+/*  $servername = "localhost";
   $username = "root";
   $password = "";
   $dbname = "myDB";
@@ -47,7 +48,7 @@
      
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-  } 
+  } */
      
   $sql = "SELECT id, user, name, email FROM logindata";
   $result = $conn->query($sql);

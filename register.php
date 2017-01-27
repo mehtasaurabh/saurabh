@@ -36,15 +36,7 @@
 			}
 		}
 	
-		$servername = 'localhost';
-		$username = 'root';
-		$password = '';
-		$dbname = 'myDB';
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		 
-		if ($conn->connect_error) {
-			  die("Connection failed: " . $conn->connect_error);
-		} 
+		include_once 'dbconnect.php';
 		$user = mysql_real_escape_string($_POST['selectUser']);
 		$name = mysql_real_escape_string($_POST['username']);
 		$email = mysql_real_escape_string($_POST['email']);
