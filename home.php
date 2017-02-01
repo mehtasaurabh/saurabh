@@ -17,8 +17,8 @@
         <li><img src="logo.png" height="300" width="400"></li>
         <li class="active"><a href="homeAdmin.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
         <?php
-			$n=$_SESSION["user"]; if("$n"== "Admin"){
-			echo "<li><a href="."allusers.php.".">Users</a></li>";
+			$n=$_SESSION["User"]; if("$n"== "Admin"){
+			echo "<li><a href="."homeAdmin.php.".">Users</a></li>";
 		}
 		?>
         <li><a href="personal.php">Personal Info</a></li>

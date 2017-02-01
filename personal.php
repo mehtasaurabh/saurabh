@@ -1,13 +1,27 @@
 <?php
-/*	File    : personal.php
-	Purpose : Contains all html data and Php data for showing personal info
-	Author  : Saurabh Mehta	*/
+    session_start();
+	if(! isset($_SESSION['email'])) {
+		echo "test";
+		header ("Location: index.php");
+	}
+		/*	
+		File    : personal.php
+		Purpose : Contains all html data and Php data for showing personal info
+		Author  : Saurabh Mehta	*/
 ?>
 
 <?php
-	$PageTitle = "Home";
+	$PageTitle = "Personal";
+	if(isset($_SESSION['email']) and (isset($_SESSION['id']))) {
+	$email = $_SESSION['email'];
+	$id = $_SESSION['id'];
+	$name = $_SESSION['name'];
+	}
+	
+	include_once 'dbconnect.php';
+	$request = $fm->newFindCommand('admin_user');
 	include_once 'header.php';
-	session_start();
+
 ?>
 
 <body>
@@ -15,12 +29,10 @@
     <div class="container-fluid">
       <ul class="nav navbar-nav">
 		<li><img src="logo.png" height="200" width="300"></li>
-        <li><a href="home.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-		<?php
-			$n=$_SESSION["user"]; if("$n"== "Admin"){
-			echo "<li><a href="."allusers.php".">Users</a></li>";}
-		?>
-        <li class="active"><a href="personal.php">Personal Info</a></li>
+		<li><a href="homeAdmin.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+		<li><a href="allusers.php"><span class="glyphicon glyphicon-user"></span>Users</a></li>
+		<li class="active"><a href="personal.php">Personal Info</a></li>
+		<li><a href="">Add users</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="signout.php"><span></span>Signout <span class="glyphicon glyphicon-log-out"></span></a></li>
@@ -28,37 +40,45 @@
     </div>
   </nav>
   <div class="container">
-	<div class="col-md-6 col-md-offset-3">
-	  <table  class="table-striped table-bordered table-hover table-condensed">
-        <tr>
-          <th>User</th>
-          <th>Name</th>
-          <th>Email</th>
-		  <th>&nbsp <span class="glyphicon glyphicon-edit"></span></th>
-        </tr>
+  	<div class="col-md-4">
+		<div class="col-md-2">
+		<div>Id:</div></br>
+		<div>User:</div></br>
+		<div>Name:</div></br>
+		<div>Email:</div></br>
 	</div>
-  </div>
-<?php
-	include_once 'dbconnect.php';
-	$n = $_SESSION["name"];
-	$sql = "SELECT id, user, name, email FROM logindata WHERE name='$n'";
-	$result = $conn->query($sql);
-        
-	if($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-	    echo "<tr>";
-	    echo "<td>" . $row["user"]. "</td>";
-	    echo "<td>" . $row["name"]. "</td>";
-	    echo "<td>" . $row["email"] . "</td>";
-	    echo "<td><a href=\"update.php?id=".$row['id']."\">Update</a></td>";
-	    echo "</tr>";        
-		}
-	} else {
-		  echo "0 results";
-		}
-	$conn->close();
-?>  
 
 <?php
-	include_once 'footer.php';
+	
+	
+	$request->addFindCriterion('id', $id);
+	$result = $request->execute();
+	$records = $result->getRecords();
+	
+	if (FileMaker::isError($records)) {
+		echo $records->getMessage();
+		if (! isset($result->code) || strlen(trim($result->code)) < 1) {
+			echo 'Error';
+		} else {
+			echo 'No such record (Error Code: '.$result->code.')';
+		}
+	} else {
+		foreach ($records as $record) {
 ?>
+			<div class="col-md-2">
+				<div><?php echo $record->getField('id'); ?></div></br>
+				<div><?php echo $record->getField('user'); ?></div></br>
+				<div><?php echo $record->getField('name'); ?></div></br>
+				<div><?php echo $record->getField('email'); ?></div></br>
+			</div>
+		</div>
+	</div>
+			
+<?php		
+		}
+    }
+?>
+</table>
+  </body>
+</html>	
+

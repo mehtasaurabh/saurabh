@@ -14,9 +14,8 @@ include_once 'header.php';
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
 				<li><img src="logo.png" height="300" width="400"></li>
-				<li class="active"><a href="aboutUs.php">About Us</a></li>
 				<li><a href="register.php">Register</a></li>
-				<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				<li><a href="index.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -41,6 +40,5 @@ include_once 'header.php';
 			Contact us: 1800 2525 52
 		</p>
 	</div>
-<?php
-  include_once 'footer.php';
-?>
+	  </body>
+</html>
